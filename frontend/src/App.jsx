@@ -9,7 +9,6 @@ import GenerateTrip from './pages/GenerateTrip';
 import TripDetails from './pages/TripDetails';
 import LandingPage from './pages/LandingPage';
 import PublicTrip from './pages/PublicTrip';
-import AuthCallback from './pages/AuthCallback';
 
 // Component to conditionally render Navbar
 const Layout = ({ children }) => {
@@ -55,9 +54,6 @@ function App() {
 
           {/* Public shared trip — no auth */}
           <Route path="/shared/:shareId" element={<PublicTrip />} />
-
-          {/* Google OAuth callback */}
-          <Route path="/auth/callback" element={<AuthCallback />} />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -85,7 +85,7 @@ const TripMap = ({ destination, itinerary }) => {
     }, [destination, itinerary]);
 
     if (loading) return (
-        <div className="w-full h-[380px] bg-[#E5E6E1] animate-pulse rounded-[24px] flex items-center justify-center">
+        <div className="w-full h-[240px] sm:h-[380px] bg-[#E5E6E1] animate-pulse rounded-[24px] flex items-center justify-center">
             <p className="text-[#888] font-semibold text-sm">Loading map…</p>
         </div>
     );
@@ -94,7 +94,7 @@ const TripMap = ({ destination, itinerary }) => {
 
     return (
         <MapContainer center={center} zoom={10} scrollWheelZoom={false}
-            style={{ height: '380px', width: '100%', borderRadius: '24px', zIndex: 0 }}>
+            style={{ height: 'clamp(240px, 40vw, 380px)', width: '100%', borderRadius: '24px', zIndex: 0 }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a>'
@@ -306,8 +306,8 @@ const ChatWidget = ({ tripId, destination, onItineraryUpdate }) => {
                 {open && (
                     <motion.div initial={{ opacity: 0, y: 24, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 24, scale: 0.95 }} transition={{ type: 'spring', stiffness: 340, damping: 28 }}
-                        className="fixed bottom-24 right-6 z-50 w-[360px] flex flex-col bg-white rounded-[28px] shadow-[0_20px_60px_rgba(0,0,0,0.18)] border border-[#E5E6E1] overflow-hidden"
-                        style={{ height: '540px' }}>
+                        className="fixed bottom-0 right-0 z-50 w-full sm:w-[360px] sm:bottom-24 sm:right-6 flex flex-col bg-white sm:rounded-[28px] shadow-[0_20px_60px_rgba(0,0,0,0.18)] border-t sm:border border-[#E5E6E1] overflow-hidden"
+                        style={{ height: 'min(540px, 90dvh)' }}>
                         <div className="px-5 py-4 border-b border-[#E5E6E1] flex items-center gap-3 bg-gradient-to-r from-[#6D8365] to-[#586A51]">
                             <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                                 <Sparkles className="w-4 h-4 text-white" />
@@ -361,7 +361,7 @@ const ChatWidget = ({ tripId, destination, onItineraryUpdate }) => {
                 )}
             </AnimatePresence>
             <motion.button whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.94 }} onClick={() => setOpen(o => !o)}
-                className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#6D8365] hover:bg-[#586A51] text-white rounded-full shadow-[0_8px_30px_rgba(109,131,101,0.5)] flex items-center justify-center transition-colors"
+                className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 w-13 h-13 sm:w-14 sm:h-14 bg-[#6D8365] hover:bg-[#586A51] text-white rounded-full shadow-[0_8px_30px_rgba(109,131,101,0.5)] flex items-center justify-center transition-colors"
                 aria-label="Open AI Chat">
                 <AnimatePresence mode="wait">
                     {open
@@ -493,43 +493,43 @@ const TripDetails = () => {
 
             {/* Hero */}
             {heroImage && (
-                <div className="w-full h-[400px] sm:h-[500px] relative">
+                <div className="w-full h-[240px] sm:h-[400px] md:h-[500px] relative">
                     <img src={heroImage} alt={destination} crossOrigin="anonymous" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#FAF9F4] via-[#FAF9F4]/40 to-transparent" />
                 </div>
             )}
 
-            <div className={`max-w-6xl mx-auto px-6 relative z-10 ${heroImage ? '-mt-48' : 'pt-10'}`}>
+            <div className={`max-w-6xl mx-auto px-4 sm:px-6 relative z-10 ${heroImage ? '-mt-24 sm:-mt-48' : 'pt-6 sm:pt-10'}`}>
 
                 {/* Back + Action Buttons */}
-                <div className="flex items-center justify-between gap-3 mb-8 flex-wrap">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 sm:mb-8">
                     <Link to="/dashboard"
-                        className="inline-flex items-center gap-2 text-[#222] hover:text-[#6D8365] font-semibold text-[15px] transition-colors bg-white/70 backdrop-blur-md px-4 py-2 rounded-full shadow-sm">
-                        <ArrowLeft className="w-5 h-5" /> Back to Journeys
+                        className="inline-flex items-center gap-2 text-[#222] hover:text-[#6D8365] font-semibold text-[14px] sm:text-[15px] transition-colors bg-white/70 backdrop-blur-md px-3 sm:px-4 py-2 rounded-full shadow-sm">
+                        <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" /> Back to Journeys
                     </Link>
 
                     <div className="flex gap-2 no-print">
                         {/* PDF Export */}
                         <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
                             onClick={handleExportPDF}
-                            className="inline-flex items-center gap-2 bg-white/70 backdrop-blur-md border border-[#E5E6E1] hover:border-[#6D8365]/40 text-[#333] font-semibold text-[14px] px-4 py-2 rounded-full shadow-sm transition-all">
-                            <Download className="w-4 h-4 text-[#6D8365]" />
-                            Export PDF
+                            className="inline-flex items-center gap-1.5 sm:gap-2 bg-white/70 backdrop-blur-md border border-[#E5E6E1] hover:border-[#6D8365]/40 text-[#333] font-semibold text-[13px] sm:text-[14px] px-3 sm:px-4 py-2 rounded-full shadow-sm transition-all">
+                            <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#6D8365]" />
+                            <span className="hidden sm:inline">Export</span> PDF
                         </motion.button>
 
                         {/* Share */}
                         <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
                             onClick={handleShare}
                             disabled={shareLoading}
-                            className={`inline-flex items-center gap-2 font-semibold text-[14px] px-4 py-2 rounded-full shadow-sm transition-all disabled:opacity-60
+                            className={`inline-flex items-center gap-1.5 sm:gap-2 font-semibold text-[13px] sm:text-[14px] px-3 sm:px-4 py-2 rounded-full shadow-sm transition-all disabled:opacity-60
                                 ${isPublic
                                     ? 'bg-[#6D8365] text-white border border-[#586A51]'
                                     : 'bg-white/70 backdrop-blur-md border border-[#E5E6E1] hover:border-[#6D8365]/40 text-[#333]'}`}>
                             {copied
-                                ? <><Check className="w-4 h-4" /> Link Copied!</>
+                                ? <><Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Copied!</>
                                 : isPublic
-                                    ? <><Share2 className="w-4 h-4" /> Sharing On</>
-                                    : <><Share2 className="w-4 h-4" /> Share Trip</>
+                                    ? <><Share2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Sharing On</>
+                                    : <><Share2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Share</>
                             }
                         </motion.button>
                     </div>
@@ -563,22 +563,22 @@ const TripDetails = () => {
 
                     {/* Header Card */}
                     <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
-                        className="bg-white rounded-[32px] p-8 sm:p-12 mb-8 border border-[#E5E6E1] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-                        <h1 className="text-4xl sm:text-6xl font-extrabold text-[#222] tracking-tight mb-4 leading-tight">
+                        className="bg-white rounded-[24px] sm:rounded-[32px] p-6 sm:p-8 md:p-12 mb-6 sm:mb-8 border border-[#E5E6E1] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-[#222] tracking-tight mb-3 sm:mb-4 leading-tight">
                             Trip to <span className="text-[#6D8365]">{destination}</span>
                         </h1>
-                        <p className="text-xl text-[#5C5C5C] font-medium leading-relaxed mb-8 max-w-4xl">
+                        <p className="text-base sm:text-xl text-[#5C5C5C] font-medium leading-relaxed mb-5 sm:mb-8 max-w-4xl">
                             {summary || `A tailored ${days}-day ${budget} journey exploring ${destination}.`}
                         </p>
-                        <div className="flex flex-wrap gap-4 text-[15.5px] font-bold">
-                            <div className="px-6 py-3 bg-[#F1F3EA] text-[#6D8365] rounded-full flex items-center gap-2">
-                                <Clock className="w-5 h-5" /> {days} Days
+                        <div className="flex flex-wrap gap-2 sm:gap-4 text-[13px] sm:text-[15.5px] font-bold">
+                            <div className="px-4 sm:px-6 py-2 sm:py-3 bg-[#F1F3EA] text-[#6D8365] rounded-full flex items-center gap-1.5 sm:gap-2">
+                                <Clock className="w-4 h-4 sm:w-5 sm:h-5" /> {days} Days
                             </div>
-                            <div className="px-6 py-3 bg-[#F1F3EA] text-[#6D8365] rounded-full flex items-center gap-2 capitalize">
-                                <Tag className="w-5 h-5" /> {budget} Budget
+                            <div className="px-4 sm:px-6 py-2 sm:py-3 bg-[#F1F3EA] text-[#6D8365] rounded-full flex items-center gap-1.5 sm:gap-2 capitalize">
+                                <Tag className="w-4 h-4 sm:w-5 sm:h-5" /> {budget} Budget
                             </div>
                             {estimatedCost && (
-                                <div className="px-6 py-3 bg-gray-50 text-gray-700 border border-gray-200 rounded-full font-bold text-[16px]">
+                                <div className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-50 text-gray-700 border border-gray-200 rounded-full font-bold text-[13px] sm:text-[15px]">
                                     Est. Total: {formatRupee(estimatedCost)}
                                 </div>
                             )}
@@ -611,7 +611,7 @@ const TripDetails = () => {
                             {itineraryDays && itineraryDays.map((day, idx) => (
                                 <motion.div key={`${day.day}-${idx}`} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: idx * 0.07 }}
-                                    className="bg-white border border-[#E5E6E1] rounded-[28px] p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.03)]">
+                                    className="bg-white border border-[#E5E6E1] rounded-[20px] sm:rounded-[28px] p-4 sm:p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.03)]">
                                     <h2 className="text-2xl font-extrabold text-[#222] mb-5">
                                         Day {day.day}
                                         <span className="opacity-30 px-2 font-normal">|</span>
@@ -662,14 +662,14 @@ const TripDetails = () => {
 
                         {/* Travel Tips */}
                         {travelTips && travelTips.length > 0 && (
-                            <div className="w-full bg-[#F1F3EA] border border-[#D5D8CB] rounded-[32px] p-8 sm:p-12 shadow-sm mt-4">
-                                <h3 className="flex items-center gap-3 text-2xl font-extrabold text-[#222] mb-8">
-                                    <Info className="text-[#6D8365] w-7 h-7" /> Essential Travel Tips
+                            <div className="w-full bg-[#F1F3EA] border border-[#D5D8CB] rounded-[24px] sm:rounded-[32px] p-6 sm:p-8 md:p-12 shadow-sm mt-4">
+                                <h3 className="flex items-center gap-2 sm:gap-3 text-xl sm:text-2xl font-extrabold text-[#222] mb-5 sm:mb-8">
+                                    <Info className="text-[#6D8365] w-5 h-5 sm:w-7 sm:h-7" /> Essential Travel Tips
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 sm:gap-x-12 gap-y-4 sm:gap-y-6">
                                     {travelTips.map((tip, i) => (
-                                        <div key={i} className="flex gap-4 text-[16.5px] font-semibold text-[#5C5C5C]">
-                                            <span className="text-[#6D8365] shrink-0 font-extrabold text-2xl leading-none">•</span>
+                                        <div key={i} className="flex gap-3 sm:gap-4 text-[14.5px] sm:text-[16.5px] font-semibold text-[#5C5C5C]">
+                                            <span className="text-[#6D8365] shrink-0 font-extrabold text-xl sm:text-2xl leading-none">•</span>
                                             <span className="leading-relaxed whitespace-pre-line">{tip}</span>
                                         </div>
                                     ))}

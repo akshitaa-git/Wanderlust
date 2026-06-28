@@ -62,22 +62,26 @@ const Dashboard = () => {
 
     return (
         <div className="min-h-[calc(100vh-80px)] bg-[#FAF9F4] pb-20">
-            <div className="max-w-7xl mx-auto px-6 py-12">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+                {/* Header Row */}
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 sm:mb-12 gap-4">
                     <div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F1F3EA] border border-[#D5D8CB] text-[#6D8365] text-xs font-extrabold tracking-wide mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F1F3EA] border border-[#D5D8CB] text-[#6D8365] text-xs font-extrabold tracking-wide mb-3 sm:mb-4">
                             ✈️ Stamps Collected: {trips.length}
                         </div>
-                        <h1 className="text-4xl font-extrabold text-[#222222] tracking-tight">
+                        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#222222] tracking-tight">
                             Your Journeys
                         </h1>
-                        <p className="text-[#5C5C5C] mt-2 font-medium text-lg">Hello, {user.name?.split(' ')[0]}. Ready for another adventure?</p>
+                        <p className="text-[#5C5C5C] mt-1.5 sm:mt-2 font-medium text-base sm:text-lg">
+                            Hello, {user.name?.split(' ')[0]}. Ready for another adventure?
+                        </p>
                     </div>
                     <Link
                         to="/generate"
-                        className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full font-bold text-white bg-[#6D8365] hover:bg-[#586A51] transition-colors shadow-sm"
+                        className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full font-bold text-white bg-[#6D8365] hover:bg-[#586A51] transition-colors shadow-sm text-sm sm:text-base flex-shrink-0"
                     >
-                        <PlusCircle className="w-5 h-5" />
+                        <PlusCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                         Plan New Trip
                     </Link>
                 </div>
@@ -90,24 +94,24 @@ const Dashboard = () => {
                     <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="bg-white border border-[#E5E6E1] rounded-[32px] p-16 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+                        className="bg-white border border-[#E5E6E1] rounded-[28px] sm:rounded-[32px] p-10 sm:p-16 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
                     >
-                        <div className="mx-auto w-16 h-16 bg-[#F1F3EA] rounded-full flex items-center justify-center mb-6">
-                            <MapPin className="w-8 h-8 text-[#6D8365]" />
+                        <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 bg-[#F1F3EA] rounded-full flex items-center justify-center mb-5 sm:mb-6">
+                            <MapPin className="w-7 h-7 sm:w-8 sm:h-8 text-[#6D8365]" />
                         </div>
-                        <h3 className="text-2xl font-bold text-[#222222] mb-3">No trips planned yet</h3>
-                        <p className="text-[#5C5C5C] mb-8 max-w-md mx-auto font-medium">
+                        <h3 className="text-xl sm:text-2xl font-bold text-[#222222] mb-3">No trips planned yet</h3>
+                        <p className="text-[#5C5C5C] mb-7 sm:mb-8 max-w-md mx-auto font-medium text-sm sm:text-base">
                             Tell us where your heart is wandering, and we'll weave the itinerary for you.
                         </p>
                         <Link
                             to="/generate"
-                            className="inline-flex items-center gap-2 px-8 py-3.5 border border-gray-200 bg-white text-[#222222] rounded-full hover:bg-gray-50 transition-colors font-bold shadow-sm"
+                            className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 border border-gray-200 bg-white text-[#222222] rounded-full hover:bg-gray-50 transition-colors font-bold shadow-sm text-sm sm:text-base"
                         >
                             Start Planning <ArrowRight className="w-4 h-4" />
                         </Link>
                     </motion.div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                         {trips.map((trip, index) => (
                             <motion.div
                                 key={trip._id}
@@ -117,9 +121,9 @@ const Dashboard = () => {
                             >
                                 <Link
                                     to={`/trips/${trip._id}`}
-                                    className="group block bg-white border border-[#E5E6E1] rounded-[24px] overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 relative h-full flex flex-col"
+                                    className="group block bg-white border border-[#E5E6E1] rounded-[20px] sm:rounded-[24px] overflow-hidden hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 relative h-full flex flex-col"
                                 >
-                                    <div className="h-40 bg-[#F1F3EA] relative p-6 flex flex-col justify-end">
+                                    <div className="h-36 sm:h-40 bg-[#F1F3EA] relative p-5 sm:p-6 flex flex-col justify-end">
                                         {tripImages[trip._id] && (
                                             <>
                                                 <img
@@ -132,28 +136,28 @@ const Dashboard = () => {
                                         )}
                                         <button
                                             onClick={(e) => deleteTrip(trip._id, e)}
-                                            className="absolute top-4 right-4 p-2 bg-white/80 hover:bg-red-50 hover:text-red-500 text-gray-500 rounded-full transition-colors z-10 opacity-0 group-hover:opacity-100"
+                                            className="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 bg-white/80 hover:bg-red-50 hover:text-red-500 text-gray-500 rounded-full transition-colors z-10 opacity-0 group-hover:opacity-100"
                                         >
                                             <Trash2 className="w-4 h-4" />
                                         </button>
-                                        <h3 className="text-2xl font-extrabold text-white leading-tight truncate relative z-10 drop-shadow-sm">
+                                        <h3 className="text-xl sm:text-2xl font-extrabold text-white leading-tight truncate relative z-10 drop-shadow-sm">
                                             {trip.destination}
                                         </h3>
                                     </div>
-                                    <div className="p-6 flex-1 flex flex-col space-y-4 bg-white z-10">
+                                    <div className="p-4 sm:p-6 flex-1 flex flex-col space-y-3 sm:space-y-4 bg-white z-10">
                                         <div className="flex items-center justify-between text-sm font-bold text-[#5C5C5C]">
                                             <div className="flex items-center gap-1.5">
                                                 <Calendar className="w-4 h-4 text-[#6D8365]" />
                                                 {trip.days} Days
                                             </div>
-                                            <div className="capitalize flex items-center gap-1.5 px-3 py-1 bg-[#FAF9F4] rounded-md border border-[#E5E6E1]">
+                                            <div className="capitalize flex items-center gap-1.5 px-3 py-1 bg-[#FAF9F4] rounded-md border border-[#E5E6E1] text-xs sm:text-sm">
                                                 {trip.budget}
                                             </div>
                                         </div>
-                                        <p className="text-[13px] font-semibold text-gray-400 tracking-wide truncate">
+                                        <p className="text-[12px] sm:text-[13px] font-semibold text-gray-400 tracking-wide truncate">
                                             {trip.interests ? String(trip.interests) : "Explore"}
                                         </p>
-                                        <div className="mt-auto pt-6 flex items-center justify-between text-sm font-bold text-gray-400 group-hover:text-[#6D8365] transition-colors">
+                                        <div className="mt-auto pt-4 sm:pt-6 flex items-center justify-between text-sm font-bold text-gray-400 group-hover:text-[#6D8365] transition-colors">
                                             <span>View Itinerary</span>
                                             <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                                         </div>

@@ -56,39 +56,39 @@ const PublicTrip = () => {
     return (
         <div className="min-h-screen bg-[#FAF9F4] pb-24 overflow-x-hidden">
             {/* Shared badge */}
-            <div className="sticky top-0 z-30 bg-[#6D8365]/95 backdrop-blur-md px-6 py-2.5 flex items-center justify-between shadow-sm">
-                <span className="text-white font-bold text-[14px]">🌍 Wanderlust — Shared Itinerary</span>
-                <Link to="/register" className="text-[12.5px] font-bold text-white/80 hover:text-white underline-offset-2 hover:underline transition">
-                    Create your own trip →
+            <div className="sticky top-0 z-30 bg-[#6D8365]/95 backdrop-blur-md px-4 sm:px-6 py-2.5 flex items-center justify-between gap-3 shadow-sm">
+                <span className="text-white font-bold text-[13px] sm:text-[14px] truncate">🌍 Wanderlust — Shared Itinerary</span>
+                <Link to="/register" className="text-[12px] sm:text-[12.5px] font-bold text-white/80 hover:text-white underline-offset-2 hover:underline transition flex-shrink-0">
+                    Create your own →
                 </Link>
             </div>
 
             {heroImage && (
-                <div className="w-full h-[400px] sm:h-[500px] relative">
+                <div className="w-full h-[240px] sm:h-[400px] md:h-[500px] relative">
                     <img src={heroImage} alt={destination} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#FAF9F4] via-[#FAF9F4]/40 to-transparent" />
                 </div>
             )}
 
-            <div className={`max-w-5xl mx-auto px-6 relative z-10 ${heroImage ? '-mt-44' : 'pt-10'}`}>
+            <div className={`max-w-5xl mx-auto px-4 sm:px-6 relative z-10 ${heroImage ? '-mt-24 sm:-mt-44' : 'pt-6 sm:pt-10'}`}>
                 {/* Header */}
                 <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }}
-                    className="bg-white rounded-[32px] p-8 sm:p-12 mb-10 border border-[#E5E6E1] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
-                    <h1 className="text-4xl sm:text-5xl font-extrabold text-[#222] tracking-tight mb-4">
+                    className="bg-white rounded-[24px] sm:rounded-[32px] p-6 sm:p-8 md:p-12 mb-8 sm:mb-10 border border-[#E5E6E1] shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#222] tracking-tight mb-3 sm:mb-4">
                         Trip to <span className="text-[#6D8365]">{destination}</span>
                     </h1>
-                    <p className="text-xl text-[#5C5C5C] font-medium leading-relaxed mb-8 max-w-3xl">
+                    <p className="text-base sm:text-xl text-[#5C5C5C] font-medium leading-relaxed mb-5 sm:mb-8 max-w-3xl">
                         {summary || `A ${days}-day ${budget} journey.`}
                     </p>
-                    <div className="flex flex-wrap gap-4 font-bold">
-                        <div className="px-6 py-3 bg-[#F1F3EA] text-[#6D8365] rounded-full flex items-center gap-2">
-                            <Clock className="w-5 h-5" /> {days} Days
+                    <div className="flex flex-wrap gap-2 sm:gap-4 font-bold">
+                        <div className="px-4 sm:px-6 py-2 sm:py-3 bg-[#F1F3EA] text-[#6D8365] rounded-full flex items-center gap-1.5 sm:gap-2 text-[13px] sm:text-base">
+                            <Clock className="w-4 h-4 sm:w-5 sm:h-5" /> {days} Days
                         </div>
-                        <div className="px-6 py-3 bg-[#F1F3EA] text-[#6D8365] rounded-full flex items-center gap-2 capitalize">
-                            <Tag className="w-5 h-5" /> {budget}
+                        <div className="px-4 sm:px-6 py-2 sm:py-3 bg-[#F1F3EA] text-[#6D8365] rounded-full flex items-center gap-1.5 sm:gap-2 capitalize text-[13px] sm:text-base">
+                            <Tag className="w-4 h-4 sm:w-5 sm:h-5" /> {budget}
                         </div>
                         {estimatedCost && (
-                            <div className="px-6 py-3 bg-gray-50 text-gray-700 border border-gray-200 rounded-full">
+                            <div className="px-4 sm:px-6 py-2 sm:py-3 bg-gray-50 text-gray-700 border border-gray-200 rounded-full text-[13px] sm:text-base">
                                 Est. {formatRupee(estimatedCost)}
                             </div>
                         )}
@@ -100,7 +100,7 @@ const PublicTrip = () => {
                     {itineraryDays && itineraryDays.map((day, idx) => (
                         <motion.div key={idx} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: idx * 0.06 }}
-                            className="bg-white border border-[#E5E6E1] rounded-[28px] p-6 sm:p-8 shadow-sm">
+                            className="bg-white border border-[#E5E6E1] rounded-[20px] sm:rounded-[28px] p-4 sm:p-6 md:p-8 shadow-sm">
                             <h2 className="text-2xl font-extrabold text-[#222] mb-5">
                                 Day {day.day}
                                 <span className="opacity-30 px-2 font-normal">|</span>

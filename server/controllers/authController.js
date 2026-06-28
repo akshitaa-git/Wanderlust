@@ -67,3 +67,59 @@ exports.login = async (req, res) => {
         res.status(500).json({ error: 'Server error during login.' });
     }
 };
+
+/**
+ * POST /api/auth/google
+ * Body: { accessToken: '<Google OAuth2 access token>' }
+ * Verifies the token with Google's userinfo endpoint, upserts user, returns JWT.
+ */
+exports.googleSignIn = async (req, res) => {
+    try {
+        const { accessToken } = req.body;
+        if (!accessToken) {
+            return res.status(400).json({ error: 'Google access token is required.' });
+        }
+
+        // Verify and fetch user profile from Google
+        const googleRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
+        if (!googleRes.ok) {
+            return res.status(401).json({ error: 'Invalid Google token. Please sign in again.' });
+        }
+
+        const profile = await googleRes.json();
+        const { sub: googleId, email, name, picture: avatar } = profile;
+
+        if (!googleId || !email) {
+            return res.status(400).json({ error: 'Could not retrieve account information from Google.' });
+        }
+
+        // Find or create user
+        let user = await User.findOne({ googleId });
+
+        if (!user) {
+            // Check if email already exists (email/password account — link it)
+            user = await User.findOne({ email });
+            if (user) {
+                user.googleId = googleId;
+                if (avatar && !user.avatar) user.avatar = avatar;
+                await user.save();
+            } else {
+                user = await User.create({ name, email, googleId, avatar });
+            }
+        }
+
+        const token = generateToken(user._id);
+
+        res.json({
+            message: 'Google sign-in successful',
+            token,
+            user: { _id: user._id, name: user.name, email: user.email, avatar: user.avatar },
+        });
+    } catch (error) {
+        console.error('Google Sign-In Error:', error);
+        res.status(401).json({ error: 'Google authentication failed. Please try again.' });
+    }
+};

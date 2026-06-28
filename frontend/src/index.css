@@ -23,4 +23,30 @@ body {
   background-color: #FAF9F4;
   color: #222222;
   font-family: var(--font-sans);
+  /* Prevent horizontal overflow globally */
+  overflow-x: hidden;
+  /* Smooth scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Ensure images never cause overflow */
+img {
+  max-width: 100%;
+}
+
+/* Leaflet map fix on mobile — prevent zoom issues */
+.leaflet-container {
+  touch-action: pan-y;
+}
+
+/* Better tap targets on mobile */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Fluid typography scale for very small screens */
+@media (max-width: 360px) {
+  html {
+    font-size: 14px;
+  }
 }

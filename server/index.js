@@ -6,9 +6,37 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5176', credentials: true }));
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    'http://localhost:5175',
+    'http://localhost:5176',
+    'http://localhost:5177',
+    'http://localhost:3000'
+];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // Dynamically allow the requesting origin to assist deployment transitions
+        // and support Vercel preview environments, preserving cookies/credentials.
+        return callback(null, true);
+    },
+    credentials: true
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Request Logger Middleware
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    if (req.body && Object.keys(req.body).length) {
+        const bodyCopy = { ...req.body };
+        if (bodyCopy.password) bodyCopy.password = '***';
+        if (bodyCopy.accessToken) bodyCopy.accessToken = '***';
+        console.log('Body:', bodyCopy);
+    }
+    next();
+});
 
 // Routes
 const authRoutes = require('./routes/authRoutes');

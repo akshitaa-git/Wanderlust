@@ -65,6 +65,14 @@ const Register = () => {
         },
     });
 
+    const handleGoogleClick = () => {
+        if (!import.meta.env.VITE_GOOGLE_CLIENT_ID || import.meta.env.VITE_GOOGLE_CLIENT_ID.includes('your_google_')) {
+            setError('Google Client ID is not configured. Please add it to your frontend/.env file.');
+            return;
+        }
+        googleLogin();
+    };
+
     const isLoading = loading || googleLoading;
 
     return (
@@ -83,7 +91,7 @@ const Register = () => {
                     {/* Google Sign Up */}
                     <button
                         type="button"
-                        onClick={() => googleLogin()}
+                        onClick={() => handleGoogleClick()}
                         disabled={isLoading}
                         className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-xl border border-[#E5E6E1] bg-white hover:bg-gray-50 transition-all font-semibold text-[15px] text-[#222] shadow-sm disabled:opacity-60"
                     >

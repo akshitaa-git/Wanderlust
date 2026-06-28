@@ -109,9 +109,6 @@ Database:
 
 **Akshita Khandelwal**
 
-GitHub: https://github.com/akshitaa-git
-
-LinkedIn: *Add your LinkedIn profile here*
 
 ---
 

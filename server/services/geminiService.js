@@ -43,7 +43,7 @@ Important rules:
 - Ensure the output is robust, creative, and valid JSON. Do not include markdown blocks like \`\`\`json.`;
 
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-latest" });
+    const model = genAI.getGenerativeModel({ model: "gemini-3.6-flash" });
     const result = await model.generateContent(prompt);
 
     let responseText = result.response.text();
